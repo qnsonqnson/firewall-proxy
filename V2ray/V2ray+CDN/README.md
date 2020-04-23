@@ -41,15 +41,15 @@ cat > /etc/v2ray/config.json <<EOF
       "settings": {
         "clients": [
           {
-            "id": "b831381d-6324-4d53-ad4f-8cda48b30811",   //自行生成
-            "alterId": 64     //自行更改
+            "id": "b831381d-6324-4d53-ad4f-8cda48b30811",   #自行生成
+            "alterId": 64     #自行更改
           }
         ]
       },
       "streamSettings": {
         "network": "ws",
         "wsSettings": {
-        "path": "/ray"       //改为任意路径
+        "path": "/ray"       #改为任意路径
         }
       }
     }
@@ -75,9 +75,9 @@ server {
     ssl_ciphers           HIGH:!aNULL:!MD5;
 
     listen 80;
-    server_name  yourdomain.com;   //改为你的域名
+    server_name  yourdomain.com;   #改为你的域名
     location / {
-        proxy_pass https://proxy.com;  //改为你想伪装的网址
+        proxy_pass https://proxy.com;  #改为你想伪装的网址
         proxy_redirect     off;
         proxy_connect_timeout      75; 
         proxy_send_timeout         90; 
@@ -88,7 +88,7 @@ server {
         proxy_temp_file_write_size 64k; 
      }
 
-    location /ray {                  //改为与上方设置相同的路径
+    location /ray {                  #改为与上方设置相同的路径
         proxy_redirect off;
         proxy_pass http://127.0.0.1:10000;
         proxy_http_version 1.1;
