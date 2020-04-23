@@ -18,8 +18,8 @@ mkdir -p /etc/shadowsocks-libev
 cat > /etc/shadowsocks-libev/config.json <<EOF
 {
     "server":"0.0.0.0",
-    "server_port":9000,     //修改端口
-    "password":"password0", //修改密码
+    "server_port":9000,     #修改端口
+    "password":"password0", #修改密码
     "timeout":300,
     "method":"aes-256-gcm",
     "fast_open":false,
