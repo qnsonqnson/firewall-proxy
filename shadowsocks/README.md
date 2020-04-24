@@ -44,8 +44,8 @@ cd /usr/src && wget -N --no-check-certificate "https://raw.githubusercontent.com
 cd /usr/src && ./tcp.sh
 ```
 # 客户端
-安卓系统 ： [Shadowsocks下载](https://github.com/charlieethan/firewall-proxy/releases/download/V4.1.10.0/shadowsocks-5.0.6.apk) | [obfs插件下载](https://github.com/charlieethan/firewall-proxy/releases/download/V4.1.10.0/obfs-local-0.0.5.apk)    
-Windows系统 ：[点击下载](https://github.com/charlieethan/firewall-proxy/releases/download/V4.1.10.0/Shadowsocks.zip)  
+- 安卓系统 ： [Shadowsocks下载](https://github.com/charlieethan/firewall-proxy/releases/download/V4.1.10.0/shadowsocks-5.0.6.apk) | [obfs插件下载](https://github.com/charlieethan/firewall-proxy/releases/download/V4.1.10.0/obfs-local-0.0.5.apk)    
+- Windows系统 ：[点击下载](https://github.com/charlieethan/firewall-proxy/releases/download/V4.1.10.0/Shadowsocks.zip)  
 Windows系统 配置如下：  
 
 ![2.jpg](https://github.com/charlieethan/firewall-proxy/blob/master/photos/2.jpg)
@@ -53,3 +53,6 @@ Windows系统 配置如下：
 obfs-local
 obfs=tls;www.github.com
 ```
+- Windows 用户可以使用我总结的规则来加速 **Onedrive云盘** 在本地的下载速度   
+规则如下 ：https://github.com/charlieethan/firewall-proxy/releases/download/V4.1.10.0/user-rule.txt  
+**下载后请直接复制到 Shadowsocks 所在的文件夹并选择覆盖，并重启 Shadowsocks 服务**
