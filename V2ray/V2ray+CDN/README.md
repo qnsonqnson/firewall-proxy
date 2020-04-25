@@ -124,7 +124,7 @@ cd /usr/src && ./tcp.sh
 # 客户端
 Windows系统: [点击下载](https://github.com/charlieethan/firewall-proxy/releases/download/V3.18/v2rayN.zip)
 
-Android系统: [点击下载](https://github.com/charlieethan/firewall-proxy/releases/download/V3.15.2/v2rayNG-1.2.5.apk) 
+Android系统: [点击下载](https://github.com/charlieethan/firewall-proxy/releases/download/V3.18/v2rayNG-1.2.6.apk) 
 
   [1]: https://freessl.cn/
   [2]: https://github.com/charlieethan/firewall-proxy/blob/master/photos/176692878.jpg
