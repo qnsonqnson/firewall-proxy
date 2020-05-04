@@ -44,7 +44,7 @@ cd /usr/src && wget -N --no-check-certificate "https://raw.githubusercontent.com
 cd /usr/src && ./tcp.sh
 ```
 # 客户端
-- 安卓系统 ： [Shadowsocks下载](https://github.com/charlieethan/firewall-proxy/releases/download/V4.1.10.0/shadowsocks-5.0.6.apk) | [obfs插件下载](https://github.com/charlieethan/firewall-proxy/releases/download/V4.1.10.0/obfs-local-0.0.5.apk)    
+- 安卓系统 ： [Shadowsocks下载](https://github.com/charlieethan/firewall-proxy/releases/download/V5.1.0/shadowsocks.apk) | [obfs插件下载](https://github.com/charlieethan/firewall-proxy/releases/download/V4.1.10.0/obfs-local-0.0.5.apk)    
 - Windows系统 ：[点击下载](https://github.com/charlieethan/firewall-proxy/releases/download/V4.1.10.0/Shadowsocks.zip)  
 Windows系统 配置如下：  
 
