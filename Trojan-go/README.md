@@ -71,7 +71,8 @@ vim server.json
     }
 }
 ```
-**`:wq!`保存并退出**
+**`:wq!`保存并退出** 
+
 - 5. 安装 Nginx  
 ```bash
 apt update
@@ -87,7 +88,7 @@ nano /etc/nginx/sites-available/your_domain.com
 ln -s /etc/nginx/sites-available/your_domain.com /etc/nginx/sites-enabled/
 vim /etc/nginx/conf.d/about.conf
 ```
-复制下列配置  
+**复制下列配置**  
 ```bash
 server {
     listen 127.0.0.1:80 default_server;
