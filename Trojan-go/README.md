@@ -9,24 +9,24 @@
 - **确保使用的域名已经成功解析到你的 VPS服务器，并且 未开启 CDN选项**   
 - 纯净的 **Debian 9** 系统 
 ## 配置内容 
-**1.**升级并安装必要软件   
+- 1. 升级并安装必要软件   
 ```bash
 sudo -i
 apt-get upgrade
 apt install -y unzip wget
 ```
-**2.**拉取安装包   
+- 2. 拉取安装包   
 ```bash
 wget https://github.com/charlieethan/firewall-proxy/releases/download/V0.4.4/trojan-go.zip
 chmod +x trojan-go.zip
 unzip trojan-go.zip
 ```
-**3.**自动申请证书 （**按提示输入你的 域名 和 邮箱**）  
+- 3. 自动申请证书 （**按提示输入你的 域名 和 邮箱**）  
 ```bash
 rm -rf trojan-go.zip
 sudo ./trojan-go -autocert request
 ```
-**4.**写入 Trojan-GO 配置文件     
+- 4. 写入 Trojan-GO 配置文件     
 ```bash
 vim server.json
 ```
@@ -72,17 +72,17 @@ vim server.json
 }
 ```
 **`:wq!`保存并退出**
-**5.**安装 Nginx  
+- 5. 安装 Nginx  
 ```bash
 apt update
 apt install nginx
 ```
-**6.**移除默认安全组 （ **your_domain.com 改为你的域名 ，Ctrl+X 保存并退出**）
+- 6. 移除默认安全组 （ **your_domain.com 改为你的域名 ，Ctrl+X 保存并退出**）
 ```bash
 rm /etc/nginx/sites-enabled/default
 nano /etc/nginx/sites-available/your_domain.com
 ```
-**7.**配置 Nginx （**your_domain.com 改为你的域名**）   
+- 7. 配置 Nginx （**your_domain.com 改为你的域名**）   
 ```bash
 ln -s /etc/nginx/sites-available/your_domain.com /etc/nginx/sites-enabled/
 vim /etc/nginx/conf.d/about.conf
@@ -119,12 +119,12 @@ server {
     return 301 https://$host$request_uri;
 }
 ```
-**8.**启动服务  
+- 8. 启动服务  
 ```bash
 nohup ./trojan-go -config server.json >trojan-go.log 2<&1 &
 nginx -s reload
 ```
-**9.**开启 BBR 加速 
+- 9. 开启 BBR 加速 
 ```bash
 bash -c 'echo "net.core.default_qdisc=fq" >> /etc/sysctl.conf'
 bash -c 'echo "net.ipv4.tcp_congestion_control=bbr" >> /etc/sysctl.conf'
