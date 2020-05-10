@@ -1,5 +1,5 @@
 ## Trojan-Go 与原版 Trojan 的区别
-- Socks5/HTTP 代理自动适配 
+- 极低的内存占用 （相比原版降低多达 30% ）
 - 多路复用，显著提升并发性能 （例如打开 [Pixiv](https://www.pixiv.net) 等图片站时，**显著提升加载速度**）  
 - 自动化HTTPS证书申请，使用ACME协议从Let's Encrypt自动申请和更新HTTPS证书   
 - **Trojan-Go 项目地址** ：https://github.com/p4gefau1t/trojan-go
