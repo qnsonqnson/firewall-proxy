@@ -1,7 +1,7 @@
 # 提要
 Shadowsocks有很多个编译版本，例如 go ，python ，C++ 等等。目前还在更新的是 C++ 版本的 Libev 版，本文将介绍 libev 版搭配混淆插件 obfs 的搭建方法 
 # 配置环境
-纯净的Debian 9 系统
+纯净的Debian 9 && 10 系统
 # 配置内容
 - 升级系统并安装 Docker
 ```
@@ -34,18 +34,15 @@ EOF
 ```
 docker run -d -p 9000:9000 -p 9000:9000/udp --name ss-libev --restart=always -v /etc/shadowsocks-libev:/etc/shadowsocks-libev teddysun/shadowsocks-libev
 ```
-# 可选配置
-- 使用BBR加速：
+- 开启 BBR 加速：
 ```
-cd /usr/src && wget -N --no-check-certificate "https://raw.githubusercontent.com/charlieethan/bbr/master/tcp.sh" && chmod +x tcp.sh && ./tcp.sh
-```
-- 先选择内核安装，重启后安装加速模块
-```
-cd /usr/src && ./tcp.sh
+bash -c 'echo "net.core.default_qdisc=fq" >> /etc/sysctl.conf'
+bash -c 'echo "net.ipv4.tcp_congestion_control=bbr" >> /etc/sysctl.conf'
+sysctl -p
 ```
 # 客户端
-- 安卓系统 ： [Shadowsocks下载](https://github.com/charlieethan/firewall-proxy/releases/download/V5.1.0/shadowsocks.apk) | [obfs插件下载](https://github.com/charlieethan/firewall-proxy/releases/download/V4.1.10.0/obfs-local-0.0.5.apk)    
-- Windows系统 ：[点击下载](https://github.com/charlieethan/firewall-proxy/releases/download/V4.1.10.0/Shadowsocks.zip)  
+- 安卓系统 ： [Shadowsocks下载](https://github.com/shadowsocks/shadowsocks-android/releases) | [obfs插件下载](https://github.com/shadowsocks/simple-obfs-android/releases)    
+- Windows系统 ：[点击下载](https://github.com/shadowsocks/shadowsocks-windows/releases) | [obfs插件下载](https://github.com/shadowsocks/simple-obfs/releases)    
 Windows系统 配置如下：  
 
 ![2.jpg](https://github.com/charlieethan/firewall-proxy/blob/master/photos/2.jpg)
