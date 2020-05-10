@@ -4,7 +4,8 @@
 # 内容
 - Shadowsocks+OBFS（无需域名）：https://github.com/charlieethan/firewall-proxy/tree/master/shadowsocks  
 - V2ray+mKcp（无需域名）：https://github.com/charlieethan/firewall-proxy/tree/master/V2ray/V2ray%2Bmkcp  
-- V2ray+Websocket over TLS1.3+CDN (需要域名）：https://github.com/charlieethan/firewall-proxy/tree/master/V2ray/V2ray%2BCDN
+- V2ray+Websocket over TLS1.3+CDN (需要域名）：     
+https://github.com/charlieethan/firewall-proxy/tree/master/V2ray/V2ray%2BCDN
 - Trojan（需要域名）：https://github.com/charlieethan/firewall-proxy/tree/master/Trojan  
 - Trojan-GO（需要域名）：https://github.com/charlieethan/firewall-proxy/tree/master/Trojan-go
 # 推荐指数  
