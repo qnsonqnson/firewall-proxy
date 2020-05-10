@@ -136,7 +136,7 @@ sysctl -p
 ```
 # 客户端配置
 
-![2](https://github.com/charlieethan/firewall-proxy/blob/master/photos/176692878.jpg)
+![2](https://github.com/charlieethan/firewall-proxy/blob/master/photos/1.jpg)
 
 **yourdomain**填你的域名 ，**id**和**alterId**填你上面设置的  
 **Path**填上面设置的路径 ，其余部分照抄即可
