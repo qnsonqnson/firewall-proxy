@@ -1,32 +1,41 @@
 # 准备工作
-- 你需要有一个自己的域名，会正确的设置 `DNS解析` 并打开 `CDN代理`
-- 你需要有你域名下的 `SSL证书` ,如果没有可以去 **[这个网站][1]** 申请
+- 你需要有一个自己的域名，会正确的设置 `DNS解析` ，如果不会请自行 GOOGLE
+- 本配置 **只支持** 最高安全级别的 **TLS1.3** ，为你的数据安全保驾 
+- **请注意配置中后面的备注部分，按要求修改**
 # 配置环境
-纯净的 Debian9 系统
+纯净的 Debian 9 && 10 系统
 # 配置内容
-- 安装V2ray
+- 安装基础工具  
+```bash
+apt-get update && apt-get -y install socat wget screen
 ```
+- 安装证书生成脚本  
+```bash
+wget -qO- get.acme.sh | bash 
+source ~/.bashrc
+```
+- 安装证书  (**your_domain.com** 改为你的域名）
+```bash
+acme.sh --issue --standalone -d your_domain.com -k ec-256
+mkdir /etc/v2ray
+acme.sh --installcert -d your_domain.com --fullchain-file /etc/v2ray/v2ray.crt --key-file /etc/v2ray/v2ray.key --ecc
+```
+- 安装V2ray 
+```bash 
 cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 bash <(curl -L -s https://install.direct/go.sh)
 ```
-- 安装 Nginx
+- 安装密码套件  （如果中途失去连接可用 **screen -R openssl** 恢复当前窗口，脚本中的选项 **全部填 n**）
+```bash
+screen -S openssl
+cd /tmp && wget --no-check-certificate https://raw.githubusercontent.com/stylersnico/nginx-openssl-chacha/master/build.sh && sh build.sh
 ```
-apt update
-apt install nginx
+- 编辑 v2ray 配置 
+```bash
+vim /etc/v2ray/config.json
 ```
-- 粘贴你的证书
-```
-cd /
-mkdir key
-vim /key/c.pem
-```
-- 粘贴你的密钥
-```
-vim /key/k.key
-```
-- 写入V2ray配置信息
-```
-cat > /etc/v2ray/config.json <<EOF
+- 复制配置  
+```bash
 {
   "log": {
     "access": "/var/log/v2ray/access.log",
@@ -41,15 +50,15 @@ cat > /etc/v2ray/config.json <<EOF
       "settings": {
         "clients": [
           {
-            "id": "b831381d-6324-4d53-ad4f-8cda48b30811",   #自行生成
-            "alterId": 64     #自行更改
+            "id": "b831381d-6324-4d53-ad4f-8cda48b30811",    #更改id
+            "alterId": 60     #更改alterID
           }
         ]
       },
       "streamSettings": {
         "network": "ws",
         "wsSettings": {
-        "path": "/ray"       #改为任意路径
+        "path": "/your_path"   #更改路径
         }
       }
     }
@@ -59,25 +68,28 @@ cat > /etc/v2ray/config.json <<EOF
       "protocol": "freedom",
       "settings": {}
     }
-  ],
+  ]
 }
-EOF
 ```
-- 写入Nginx配置
+- 修改 Nginx 配置 
+```bash
+mkdir /etc/nginx/conf.d
+vim /etc/nginx/conf.d/about.conf
 ```
-cat > /etc/nginx/conf.d/v2ray.conf <<EOF
+- 复制配置  
+```bash
 server {
-    listen 443 ssl;
-    ssl on;                                                         
-    ssl_certificate       /key/c.pem;  
-    ssl_certificate_key   /key/k.key;
-    ssl_protocols         TLSv1 TLSv1.1 TLSv1.2;                    
-    ssl_ciphers           HIGH:!aNULL:!MD5;
+    listen 443 ssl http2;                                                       
+    ssl_certificate       /etc/v2ray/v2ray.crt;  
+    ssl_certificate_key   /etc/v2ray/v2ray.key;
+    ssl_protocols         TLSv1.3;                    
+    ssl_ciphers           ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384;
+    ssl_prefer_server_ciphers on;
 
     listen 80;
-    server_name  yourdomain.com;   #改为你的域名
+    server_name  your_domain.com;    #改为你的域名
     location / {
-        proxy_pass https://proxy.com;  #改为你想伪装的网址
+        proxy_pass https://proxy.com;     #改为你想伪装的网址
         proxy_redirect     off;
         proxy_connect_timeout      75; 
         proxy_send_timeout         90; 
@@ -88,7 +100,7 @@ server {
         proxy_temp_file_write_size 64k; 
      }
 
-    location /ray {                  #改为与上方设置相同的路径
+    location /your_path {       ##改为你在上面修改的路径
         proxy_redirect off;
         proxy_pass http://127.0.0.1:10000;
         proxy_http_version 1.1;
@@ -98,33 +110,38 @@ server {
         proxy_read_timeout 300s;
     }
 }
-EOF
+server {
+    listen 127.0.0.1:80;
+    server_name ip.ip.ip.ip;    #改为你服务器的 IP 地址
+    return 301 https://your_domain.com$request_uri;    #改为你的域名
+}
+
+server {
+    listen 0.0.0.0:80;
+    listen [::]:80;
+    server_name _;
+    return 301 https://$host$request_uri;
+  }
 ```
-- 运行 V2ray
-```
-chmod 777 /key/*
+- 启动服务  
+```bash 
 nginx -s reload
 service v2ray restart
 ```
-# 可选配置
-- 使用BBR加速：  
-```
-cd /usr/src && wget -N --no-check-certificate "https://raw.githubusercontent.com/charlieethan/bbr/master/tcp.sh" && chmod +x tcp.sh && ./tcp.sh
-```
-- 先选择内核安装，重启后安装加速模块  
-```
-cd /usr/src && ./tcp.sh
+- 开启 BBR 加速 
+```bash
+bash -c 'echo "net.core.default_qdisc=fq" >> /etc/sysctl.conf'
+bash -c 'echo "net.ipv4.tcp_congestion_control=bbr" >> /etc/sysctl.conf'
+sysctl -p
 ```
 # 客户端配置
 
-![2][2]
+![2](https://github.com/charlieethan/firewall-proxy/blob/master/photos/176692878.jpg)
 
 **yourdomain**填你的域名 ，**id**和**alterId**填你上面设置的  
 **Path**填上面设置的路径 ，其余部分照抄即可
 # 客户端
-Windows系统: [点击下载](https://github.com/charlieethan/firewall-proxy/releases/download/V3.18/v2rayN.zip)
+Windows系统: [点击下载](https://github.com/2dust/v2rayN/releases)
 
-Android系统: [点击下载](https://github.com/charlieethan/firewall-proxy/releases/download/V3.18/v2rayNG-1.2.6.apk) 
+Android系统: [点击下载](https://github.com/2dust/v2rayNG/releases) 
 
-  [1]: https://freessl.cn/
-  [2]: https://github.com/charlieethan/firewall-proxy/blob/master/photos/176692878.jpg
