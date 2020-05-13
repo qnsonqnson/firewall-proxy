@@ -83,7 +83,7 @@ server {
     ssl_certificate       /etc/v2ray/v2ray.crt;  
     ssl_certificate_key   /etc/v2ray/v2ray.key;
     ssl_protocols         TLSv1.3;                    
-    ssl_ciphers           ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384;
+    ssl_ciphers           ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4:!DH:!DHE;
     ssl_prefer_server_ciphers on;
 
     listen 80;
