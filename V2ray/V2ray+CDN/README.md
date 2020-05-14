@@ -27,7 +27,7 @@ bash <(curl -L -s https://install.direct/go.sh)
 ```
 - 安装密码套件  （如果中途失去连接可用 **screen -R openssl** 恢复当前窗口，脚本中的选项 **全部填 n**）
 ```bash
-screen -S openssl
+screen -S openssl        
 cd /tmp && wget --no-check-certificate https://raw.githubusercontent.com/stylersnico/nginx-openssl-chacha/master/build.sh && sh build.sh
 ```
 - 编辑 v2ray 配置 
