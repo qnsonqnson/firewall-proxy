@@ -43,7 +43,8 @@ vim server.json
     ],
     "ssl": {
         "cert": "/root/server.crt",
-        "key": "/root/server.key"
+        "key": "/root/server.key",
+        "fallback_port": 3000
     }
 }
 ```
@@ -60,7 +61,8 @@ vim server.json
     ],
     "ssl": {
         "cert": "/root/server.crt",
-        "key": "/root/server.key"
+        "key": "/root/server.key",
+        "fallback_port": 3000
     },
       "websocket": {
         "enabled": true,
@@ -118,6 +120,11 @@ server {
     listen [::]:80;
     server_name _;
     return 301 https://$host$request_uri;
+}
+server {
+	listen 127.0.0.1:3000;
+	server_name _;
+	return 400;
 }
 ```
 - 8. 启动服务  
