@@ -6,7 +6,10 @@
 - V2ray+Websocket over TLS1.3+CDN (需要域名）：     
 https://github.com/charlieethan/firewall-proxy/tree/master/V2ray/V2ray%2BCDN
 - Trojan（需要域名）：https://github.com/charlieethan/firewall-proxy/tree/master/Trojan  
-- Trojan-GO（需要域名）：https://github.com/charlieethan/firewall-proxy/tree/master/Trojan-go
+- Trojan-GO（需要域名）：https://github.com/charlieethan/firewall-proxy/tree/master/Trojan-go  
+- 树莓派4b固件下载：固件包内包含全部的翻墙软件（可使用SS/SSR/V2ray/Trojan全部主流协议）   
+和常用的所有软件（例如广告过滤/百度网盘/BT下载等）     
+[点击下载](https://github.com/charlieethan/firewall-proxy/releases/download/V1/raspberry.pi.4.img) | 详情看 [这篇文章](https://blog.charlieethan.com/index.php/archives/281.html)
 # 推荐指数  
 ⭐⭐⭐⭐⭐ Trojan-GO       
 ⭐⭐⭐⭐ Trojan             
