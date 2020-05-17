@@ -44,7 +44,11 @@ vim server.json
     "ssl": {
         "cert": "/root/server.crt",
         "key": "/root/server.key",
-        "fallback_port": 3000
+        "fallback_port": 3000 ,
+	"alpn": [
+        "http/1.1",
+        "h2"
+        ]
     }
 }
 ```
@@ -62,7 +66,11 @@ vim server.json
     "ssl": {
         "cert": "/root/server.crt",
         "key": "/root/server.key",
-        "fallback_port": 3000
+        "fallback_port": 3000 ,
+	"alpn": [
+        "http/1.1",
+        "h2"
+        ]
     },
       "websocket": {
         "enabled": true,
