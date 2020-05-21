@@ -148,5 +148,36 @@ sysctl -p
 ```
 ## 客户端的使用 
 PC平台 ：https://github.com/Trojan-Qt5/Trojan-Qt5/releases   
-安卓平台 ：https://github.com/charlieethan/firewall-proxy/releases/download/V0.4.4/igniter-go-v0.4.0.apk   
-**如果未开启 Websocket ，请关闭相关开关**
+安卓平台 ：[点击下载](https://github.com/charlieethan/firewall-proxy/releases/download/V0.4.11_m/Igniter-Go-v0.4.11.apk)	
+**移动版推荐配置如下 ：**		
+```bash
+{
+    "run_type": "client",
+    "local_addr": "127.0.0.1",
+    "local_port": 1080,
+    "remote_addr": "your_domain",
+    "remote_port": 443,
+    "password": [
+        "your_password"
+    ],
+    "ssl": {
+        "certify": true,
+        "sni": "your_domain",
+        "session_ticket": true,
+        "reuse_session": true,
+        "fingerprint": "auto"
+    },
+    "mux": {
+        "enabled": true,
+        "concurrency": 8,
+        "idle_timeout": 60
+    },
+    "websocket": {
+        "enabled": false,
+        "path": "\/path",
+        "double_tls": false,
+        "obfuscation_password": ""
+    }
+}
+```		
+**注：如果开启 websocket ，请自行按照服务器端对本地配置进行修改**
