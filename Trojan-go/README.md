@@ -162,7 +162,7 @@ PC平台 ：https://github.com/Trojan-Qt5/Trojan-Qt5/releases
         "your_password"
     ],
     "ssl": {
-        "certify": true,
+        "verify": true,
         "sni": "your_domain",
         "session_ticket": true,
         "reuse_session": true,
