@@ -104,7 +104,7 @@ server {
     listen 127.0.0.1:80 default_server;
     server_name your_domain.com;   #修改为你的域名
     location / {
-        proxy_pass https://your_proxy.com;   #修改为你想伪装的网站域名，例如 https://www.pexels.com  
+        proxy_pass https://your_proxy.com;   #修改为你想伪装的网站域名，例如 https://unsplash.com/  
         proxy_redirect     off;
         proxy_connect_timeout      75; 
         proxy_send_timeout         90; 
