@@ -23,4 +23,11 @@ https://github.com/charlieethan/firewall-proxy/tree/master/V2ray
 目前有几个项目，致力于将三大协议写入一个软件：      
 - V2Ray-Desktop ：https://github.com/Dr-Incognito/V2Ray-Desktop     
 - Qv2ray ：https://github.com/Qv2ray/Qv2ray    
-- Pharos ：https://github.com/PharosVip/Pharos-Android-Test    
+- Pharos ：https://github.com/PharosVip/Pharos-Android-Test      
+# 更新日志  
+<details>
+<summary>5月28日更新</summary>
+
+- 跟进 Trojan-GO V0.4.12 ，新增服务器端验证 SNI 功能 
+- 优化 V2ray 主页显示层次
+</details>
