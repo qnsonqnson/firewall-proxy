@@ -4,7 +4,7 @@
 # 内容
 - Shadowsocks+OBFS（无需域名）：https://github.com/charlieethan/firewall-proxy/tree/master/shadowsocks  
 - V2ray+Websocket over TLS1.3+CDN (需要域名）：     
-https://github.com/charlieethan/firewall-proxy/tree/master/V2ray/V2ray%2BCDN
+https://github.com/charlieethan/firewall-proxy/tree/master/V2ray
 - Trojan（需要域名）：https://github.com/charlieethan/firewall-proxy/tree/master/Trojan  
 - Trojan-GO（需要域名）：https://github.com/charlieethan/firewall-proxy/tree/master/Trojan-go  
 - 树莓派4b固件下载：固件包内包含全部的翻墙软件（可使用SS/SSR/V2ray/Trojan全部主流协议）   
