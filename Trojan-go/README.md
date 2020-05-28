@@ -17,7 +17,7 @@ apt install -y unzip wget
 ```
 - 2. 拉取安装包   
 ```bash
-wget https://github.com/charlieethan/firewall-proxy/releases/download/V0.4.11/trojan-go.zip
+wget https://github.com/charlieethan/firewall-proxy/releases/download/V0.4.12/trojan-go.zip
 chmod +x trojan-go.zip
 unzip trojan-go.zip
 ```
@@ -44,11 +44,8 @@ vim server.json
     "ssl": {
         "cert": "/root/server.crt",
         "key": "/root/server.key",
-        "fallback_port": 3000 ,
-	"alpn": [
-        "http/1.1",
-        "h2"
-        ]
+	"sni": "your_domain.com",    #修改为你的域名
+        "fallback_port": 3000 
     }
 }
 ```
@@ -66,11 +63,8 @@ vim server.json
     "ssl": {
         "cert": "/root/server.crt",
         "key": "/root/server.key",
-        "fallback_port": 3000 ,
-	"alpn": [
-        "http/1.1",
-        "h2"
-        ]
+	"sni": "your_domain.com",    #修改为你的域名
+        "fallback_port": 3000 
     },
       "websocket": {
         "enabled": true,
