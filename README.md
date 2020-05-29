@@ -30,4 +30,9 @@ https://github.com/charlieethan/firewall-proxy/tree/master/V2ray
 
 - 跟进 Trojan-GO V0.5.0 ，新增服务器端验证 SNI 功能 
 - 优化 V2ray 主页显示层次
+</details>  
+<details>
+<summary>5月29日更新</summary>
+
+- 跟进 Trojan-GO V0.5.1 ，修复 Fallback port 
 </details>
