@@ -1,37 +1,37 @@
-# 准备工作
-1.你需要拥有一个自己的**域名**，并会正确设置**DNS解析**，如果你不知道以上两个名词的含义，请自行Google学习     
-2.搭建环境 ：纯净的 **Debian 9** 系统
+# 準備工作
+1.你需要擁有一個自己的**功能變數名稱**，並會正確設置**DNS解析**，如果你不知道以上兩個名詞的含義，請自行Google學習     
+2.搭建環境 ：純淨的 **Debian 9** 系統
 
-# 开始部署
-- 下载证书申请脚本
+# 開始部署
+- 下載證書申請腳本
 ```bash
 apt-get update && apt-get -y install socat         
 wget -qO- get.acme.sh | bash       
 source ~/.bashrc
 ```
-- 安装脚本 （注意：**yourdomain.com**请替换为你自己的域名）
+- 安裝腳本 （注意：**yourdomain.com**請替換為你自己的功能變數名稱）
 ```bash
 acme.sh --issue --standalone -d yourdomain.com -k ec-256
 mkdir /etc/trojan
 acme.sh --installcert -d yourdomain.com --fullchain-file /etc/trojan/trojan.crt --key-file /etc/trojan/trojan.key --ecc
 ```
-- 安装Nginx
+- 安裝Nginx
 ```bash
 apt update
 apt install nginx
 ```
-- 移除默认代理组 （注意：**yourdomain.com**请替换为你自己的域名,执行后按**Ctrl+X**退出）
+- 移除默認代理組 （注意：**yourdomain.com**請替換為你自己的功能變數名稱,執行後按**Ctrl+X**退出）
 ```bash
 rm /etc/nginx/sites-enabled/default
 nano /etc/nginx/sites-available/yourdomain.com
 ```
-- 添加新的代理组并编辑配置文件 （注意：**yourdomain.com**请替换为你自己的域名）
+- 添加新的代理組並編輯配置檔 （注意：**yourdomain.com**請替換為你自己的功能變數名稱）
 ```bash
 ln -s /etc/nginx/sites-available/yourdomain.com /etc/nginx/sites-enabled/
 vim /etc/nginx/conf.d/about.conf
 ```
-- 将以下内容粘贴 （注意：**yourdomain.com**请替换为你自己的域名，**proxy.com** 请替换为你想镜像的网站,**ip.ip.ip.ip**请替换为你的服务器地址，**共有4处需要修改**）                  
-**切勿替换为墙内不可直连的网站，例如Google/Facebook/Youtube等等。最好也不要替换为服务器在国内的网站，例如 百度/豆瓣 等等**
+- 將以下內容粘貼 （注意：**yourdomain.com**請替換為你自己的功能變數名稱，**proxy.com** 請替換為你想鏡像的網站,**ip.ip.ip.ip**請替換為你的伺服器地址，**共有4處需要修改**）                  
+**切勿替換為牆內不可直連的網站，例如Google/Facebook/Youtube等等。最好也不要替換為伺服器在國內的網站，例如 百度/豆瓣 等等**
 ```bash
 server {
     listen 127.0.0.1:80 default_server;
@@ -63,13 +63,13 @@ server {
     return 301 https://$host$request_uri;
 }
 ```
-- 安装Trojan并编辑配置文件
+- 安裝Trojan並編輯配置檔
 ```bash
 wget -qO- get.docker.com | bash
 docker pull teddysun/trojan
 cd /etc/trojan && vim config.json
 ```
-- 将以下内容粘贴 （注意：**password0**请更改为**你自己设置的密码**，最好在8位以上，其余部分无需更改，除非你知道自己在做什么）
+- 將以下內容粘貼 （注意：**password0**請更改為**你自己設置的密碼**，最好在8位以上，其餘部分無需更改，除非你知道自己在做什麼）
 ```bash
 {
     "run_type": "server",
@@ -116,21 +116,21 @@ cd /etc/trojan && vim config.json
     }
 }
 ```
-- 启动BBR加速
+- 啟動BBR加速
 ```bash
 sudo bash -c 'echo "net.core.default_qdisc=fq" >> /etc/sysctl.conf'
 sudo bash -c 'echo "net.ipv4.tcp_congestion_control=bbr" >> /etc/sysctl.conf'
 sudo sysctl -p
 ```
-- 启动服务
+- 啟動服務
 ```bash
 nginx -s reload
 docker run -d --name trojan --restart always --net host -v /etc/trojan:/etc/trojan teddysun/trojan
 ```
 
-# 客户端
-安卓系统 ：[点击下载](https://github.com/trojan-gfw/igniter/releases)          
-> 配置如下： **地址**填你的域名，**端口**填 443 ，**密码**填你刚才设置的密码，其他选项无需更改        
+# 客戶端
+安卓系統 ：[點擊下載](https://github.com/trojan-gfw/igniter/releases)          
+> 配置如下： **地址**填你的功能變數名稱，**端口**填 443 ，**密碼**填你剛才設置的密碼，其他選項無需更改        
 
-Windows系统 ：[点击下载](https://github.com/Trojan-Qt5/Trojan-Qt5/releases)   
-> 项目地址 & 使用说明 ：https://github.com/TheWanderingCoel/Trojan-Qt5
+Windows系統 ：[點擊下載](https://github.com/Trojan-Qt5/Trojan-Qt5/releases)   
+> 專案地址 & 使用說明 ：https://github.com/TheWanderingCoel/Trojan-Qt5
