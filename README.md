@@ -1,29 +1,19 @@
-English Version | 香港繁體 | [大陆简体](https://github.com/charlieethan/firewall-proxy/tree/master)
-# Waring  
-The international version is still working, please wait
-# About
-This project mission is to provide tutors to let you across the firewall in your country, every method is still working in China,   
-But whether works in your country, you need to try it one by one    
-The main project I'm using are these below:     
+# 關於
+本項目旨在提供幾個主流的代理軟體搭建教程，使用到的專案如下：    
 - Shadowsocks:https://github.com/shadowsocks/shadowsocks/tree/master    
 - V2ray:https://github.com/v2ray/v2ray-core     
 - Trojan:https://github.com/trojan-gfw/trojan     
-- Trojan-GO:https://github.com/p4gefau1t/trojan-go
-# Content
-- Shadowsocks+Obfuscation（DO NOT Need a domain）：  
-https://github.com/charlieethan/firewall-proxy/tree/English/shadowsocks
-- V2ray+Websocket+TLS (Need a domain）：https://github.com/charlieethan/firewall-proxy/tree/English/V2ray           
-
-- Trojan（Need a domain）：
-- Trojan-GO（Need a domain）：   
-# Precautions
-- The project remarks "Need a domain" **need you have a domain** to build the service   
- It's necessary, **If you do not have, please buy one**    
-- If you choose **"Need a domain"** solution, you need a little knowledge about     
-**"How to set a record on your Nameservice Provider to Point your Domain to your Server IP address"**   
-All the servive build in this premise,**Because it's so easy to learn, I won't introduce again in the Tutor** 
-# Recommend index 
+- Trojan-GO:https://github.com/p4gefau1t/trojan-go  
+# 內容
+- Shadowsocks+OBFS（無需功能變數名稱）：https://github.com/charlieethan/firewall-proxy/tree/master/shadowsocks  
+- V2ray+Websocket+TLS (需要功能變數名稱）：https://github.com/charlieethan/firewall-proxy/tree/master/V2ray     
+- Trojan（需要功能變數名稱）：https://github.com/charlieethan/firewall-proxy/tree/master/Trojan      
+- Trojan-GO（需要功能變數名稱）：https://github.com/charlieethan/firewall-proxy/tree/master/Trojan-go    
+# 注意事項
+- **需要功能變數名稱** 的搭建方式需要你 **擁有一個自己的功能變數名稱**並會**正確設置解析記錄**     
+由於互聯網上關於此的教程數以萬計，因此**如果你不會請自行學習**，教程中不再贅述基礎知識
+# 推薦指數  
 ⭐⭐⭐⭐⭐ Trojan-GO       
 ⭐⭐⭐⭐ Trojan             
-⭐⭐⭐⭐ V2ray+Websocket+TLS       
-⭐⭐ Shadowsocks+Obfuscation    
+⭐⭐⭐⭐ V2ray+Websocket over TLS1.3+CDN       
+⭐⭐ Shadowsocks+OBFS    
