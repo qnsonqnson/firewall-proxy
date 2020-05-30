@@ -1,4 +1,4 @@
-English Version | 香港繁體 | [大陆简体](https://github.com/charlieethan/firewall-proxy/tree/master)
+English Version | [香港繁體](https://github.com/charlieethan/firewall-proxy/tree/traditional) | [大陆简体](https://github.com/charlieethan/firewall-proxy/tree/master)
 # Waring  
 The international version is still working, please wait
 # About
