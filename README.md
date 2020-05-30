@@ -10,7 +10,8 @@ The main project I'm using are these below:
 - Trojan:https://github.com/trojan-gfw/trojan     
 - Trojan-GO:https://github.com/p4gefau1t/trojan-go
 # Content
-- Shadowsocks+Obfuscation（DO NOT Need a domain）：https://github.com/charlieethan/firewall-proxy/tree/English/shadowsocks       
+- Shadowsocks+Obfuscation（DO NOT Need a domain）：  
+https://github.com/charlieethan/firewall-proxy/tree/English/shadowsocks
 - V2ray+Websocket+TLS (Need a domain）：https://github.com/charlieethan/firewall-proxy/tree/English/V2ray           
 
 - Trojan（Need a domain）：
