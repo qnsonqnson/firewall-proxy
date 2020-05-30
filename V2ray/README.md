@@ -1,40 +1,40 @@
-# 准备工作
-- 你需要有一个自己的域名，会正确的设置 `DNS解析` ，如果不会请自行 GOOGLE
-- 本配置 **只支持** 最高安全级别的 **TLS1.3** ，为你的数据安全保驾 
-- **请注意配置中后面的备注部分，按要求修改**
-# 配置环境
-纯净的 Debian 9 系统
-# 配置内容
-- 安装基础工具  
+# Prepare
+- You need correctly appoint your Domain to your Server IP, and DO NOT open **CDN service** at first
+- **Please pay attention to the marks on each line of the config files, and modify them as requested**
+# Environment
+Debian 9 && Ubuntu 16~18
+# Content
+- install basic tools
 ```bash
 apt-get update && apt-get -y install socat wget screen
 ```
-- 安装证书生成脚本  
+- install script  
 ```bash
 wget -qO- get.acme.sh | bash 
 source ~/.bashrc
 ```
-- 安装证书  (**your_domain.com** 改为你的域名）
+- request SSL certificate (modify **your_domain.com** to your domain）
 ```bash
 acme.sh --issue --standalone -d your_domain.com -k ec-256
 mkdir /etc/v2ray
 acme.sh --installcert -d your_domain.com --fullchain-file /etc/v2ray/v2ray.crt --key-file /etc/v2ray/v2ray.key --ecc
 ```
-- 安装V2ray 
+- install V2ray 
 ```bash 
 cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 bash <(curl -L -s https://install.direct/go.sh)
 ```
-- 安装密码套件  （如果中途失去连接可用 **screen -R openssl** 恢复当前窗口，脚本中的选项 **全部填 n**）
+- install basic dependence    
+（If you lose connection, you can use **screen -R openssl** to recover，All choice in script please select **n**）
 ```bash
 screen -S openssl        
 cd /tmp && wget --no-check-certificate https://raw.githubusercontent.com/stylersnico/nginx-openssl-chacha/master/build.sh && sh build.sh
 ```
-- 编辑 v2ray 配置 
+- modify config file 
 ```bash
 vim /etc/v2ray/config.json
 ```
-- 复制配置  
+- copy your config  
 ```bash
 {
   "log": {
@@ -50,15 +50,15 @@ vim /etc/v2ray/config.json
       "settings": {
         "clients": [
           {
-            "id": "b831381d-6324-4d53-ad4f-8cda48b30811",    #更改id
-            "alterId": 60     #更改alterID
+            "id": "b831381d-6324-4d53-ad4f-8cda48b30811",    # modify UUID,you can generate one from https://www.uuidgenerator.net/
+            "alterId": 60     #modify alterID,please keep the number between 0~300
           }
         ]
       },
       "streamSettings": {
         "network": "ws",
         "wsSettings": {
-        "path": "/your_path"   #更改路径
+        "path": "/your_path"   #modify path
         }
       }
     }
@@ -71,12 +71,12 @@ vim /etc/v2ray/config.json
   ]
 }
 ```
-- 修改 Nginx 配置 
+- modify config files of Nginx 
 ```bash
 mkdir /etc/nginx/conf.d
 vim /etc/nginx/conf.d/about.conf
 ```
-- 复制配置  
+- copy your config  
 ```bash
 server {
     listen 443 ssl http2;                                                       
@@ -87,9 +87,9 @@ server {
     ssl_prefer_server_ciphers on;
 
     listen 80;
-    server_name  your_domain.com;    #改为你的域名
+    server_name  your_domain.com;    #modify "your_domain.com" to your domain
     location / {
-        proxy_pass https://proxy.com;     #改为你想伪装的网址
+        proxy_pass https://proxy.com;     #modify to any website URL you want to disguise
         proxy_redirect     off;
         proxy_connect_timeout      75; 
         proxy_send_timeout         90; 
@@ -100,7 +100,7 @@ server {
         proxy_temp_file_write_size 64k; 
      }
 
-    location /your_path {       ##改为你在上面修改的路径
+    location /your_path {       ##modify the path you modified above 
         proxy_redirect off;
         proxy_pass http://127.0.0.1:10000;
         proxy_http_version 1.1;
@@ -112,8 +112,8 @@ server {
 }
 server {
     listen 127.0.0.1:80;
-    server_name ip.ip.ip.ip;    #改为你服务器的 IP 地址
-    return 301 https://your_domain.com$request_uri;    #改为你的域名
+    server_name ip.ip.ip.ip;    #modify to your server IP address
+    return 301 https://your_domain.com$request_uri;    #modify "your_domain.com" to your domain
 }
 
 server {
@@ -123,24 +123,23 @@ server {
     return 301 https://$host$request_uri;
   }
 ```
-- 启动服务  
+- Start Service  
 ```bash 
 nginx -s reload
 service v2ray restart
 ```
-- 开启 BBR 加速 
+- Start BBR Accelerate (A solotion to decrease network delay from Google) ：
 ```bash
 bash -c 'echo "net.core.default_qdisc=fq" >> /etc/sysctl.conf'
 bash -c 'echo "net.ipv4.tcp_congestion_control=bbr" >> /etc/sysctl.conf'
 sysctl -p
 ```
-# 客户端配置
+# Client
+Windows 7+: [Download](https://github.com/2dust/v2rayN/releases)    
+Configuraton is like below:   
+
 
 ![2](https://github.com/charlieethan/firewall-proxy/blob/master/photos/1.jpg)
 
-**yourdomain**填你的域名 ，**id**和**alterId**填你上面设置的  
-**Path**填上面设置的路径 ，其余部分照抄即可
-# 客户端
-Windows系统: [点击下载](https://github.com/2dust/v2rayN/releases)
 
-Android系统: [点击下载](https://github.com/2dust/v2rayNG/releases) 
+Android 6.0+: [Download](https://github.com/2dust/v2rayNG/releases) 
