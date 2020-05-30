@@ -2,7 +2,7 @@ English Version | [香港繁體](https://github.com/charlieethan/firewall-proxy/
 # Waring  
 The international version is still working, please wait
 # About
-This project mission is to provide tutors to let you across the firewall in your country, every method is still working in China,   
+This project mission is to provide tutorials to let you across the firewall in your country, every method is still working in China,   
 But whether works in your country, you need to try it one by one    
 The main project I'm using are these below:     
 - Shadowsocks:https://github.com/shadowsocks/shadowsocks/tree/master    
@@ -11,9 +11,9 @@ The main project I'm using are these below:
 - Trojan-GO:https://github.com/p4gefau1t/trojan-go
 # Content
 - Shadowsocks+Obfuscation（DO NOT Need a domain）：  
-https://github.com/charlieethan/firewall-proxy/tree/English/shadowsocks
-- V2ray+Websocket+TLS (Need a domain）：https://github.com/charlieethan/firewall-proxy/tree/English/V2ray           
-
+https://github.com/charlieethan/firewall-proxy/tree/English/shadowsocks    
+- V2ray+Websocket+TLS (Need a domain）：   
+https://github.com/charlieethan/firewall-proxy/tree/English/V2ray           
 - Trojan（Need a domain）：
 - Trojan-GO（Need a domain）：   
 # Precautions
