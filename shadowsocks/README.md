@@ -1,5 +1,5 @@
  # 配置環境
-純淨的Debian 9 && 10 系統
+Debian 9 && Ubuntu 16~18
 # 配置內容
 - 升級系統並安裝 Docker
 ```
