@@ -1,7 +1,7 @@
 # Prepare
 - You need correctly appoint your Domain to your Server IP, and DO NOT open **CDN service** at first
 - **Please pay attention to the marks on each line of the config files, and modify them as requested**
-# Environment
+# Build Environment
 Debian 9 && Ubuntu 16~18
 # Content
 - install basic tools
