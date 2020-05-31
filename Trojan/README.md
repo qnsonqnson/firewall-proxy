@@ -20,13 +20,9 @@ acme.sh --installcert -d yourdomain.com --fullchain-file /etc/trojan/trojan.crt 
 apt update
 apt install nginx
 ```
-- 移除默認代理組 （注意：**yourdomain.com**請替換為你自己的功能變數名稱,執行後按**Ctrl+X**退出）
+- 移除默認 （ **your_domain.com 改為你的功能變數名稱**）
 ```bash
 rm /etc/nginx/sites-enabled/default
-nano /etc/nginx/sites-available/yourdomain.com
-```
-- 添加新的代理組並編輯配置檔 （注意：**yourdomain.com**請替換為你自己的功能變數名稱）
-```bash
 ln -s /etc/nginx/sites-available/yourdomain.com /etc/nginx/sites-enabled/
 vim /etc/nginx/conf.d/about.conf
 ```
