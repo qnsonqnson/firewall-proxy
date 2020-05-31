@@ -1,36 +1,31 @@
-## Trojan-Go 与原版 Trojan 的区别
-- 极低的内存占用 （相比原版降低多达 30% ）
-- 多路复用，显著提升并发性能 （例如打开 [Pixiv](https://www.pixiv.net) 等图片站时，**显著提升加载速度**）  
-- 自动化HTTPS证书申请，使用ACME协议从Let's Encrypt自动申请和更新HTTPS证书   
-- **Trojan-Go 项目地址** ：https://github.com/p4gefau1t/trojan-go
-## 前期准备 
-- 一台可用的 VPS   
-- 一个 **没有被 DNS 污染的域名**    
-- **确保使用的域名已经成功解析到你的 VPS服务器，并且 未开启 CDN选项**   
-- 纯净的 **Debian 9** 系统 
-## 配置内容 
-- 1. 升级并安装必要软件   
+## Prepare 
+- You need correctly appoint your Domain to your Server IP, and DO NOT open CDN service at first	   
+- **Please pay attention to the marks on each line of the config files, and modify them as requested**    	
+## Build Environment	
+Debian 9 && Ubuntu 16~18
+## Content 
+- 1. install basic tools   
 ```bash
 sudo -i
 apt-get upgrade
 apt install -y unzip wget
 ```
-- 2. 拉取安装包   
+- 2. download package   
 ```bash
 wget https://github.com/charlieethan/firewall-proxy/releases/download/V0.5.1/trojan-go.zip
 chmod +x trojan-go.zip
 unzip trojan-go.zip
 ```
-- 3. 自动申请证书 （**按提示输入你的 域名 和 邮箱**）  
+- 3. request SSL（Please type your Domain & E-mail Address with Tip）  
 ```bash
 rm -rf trojan-go.zip
 sudo ./trojan-go -autocert request
 ```
-- 4. 写入 Trojan-GO 配置文件     
+- 4. modify config files     
 ```bash
 vim server.json
 ```
-> 配置a ：不需要使用 **CDN** 进行流量中转 （你的服务器 IP地址 未被墙）  
+> config a ：DO NOT Need to use CDN  
 ```bash
 {
     "run_type": "server",
@@ -39,17 +34,17 @@ vim server.json
     "remote_addr": "127.0.0.1",
     "remote_port": 80,
     "password": [
-        "password0"  #修改为你设定的密码
+        "password0"  #modify to your password
     ],
     "ssl": {
         "cert": "/root/server.crt",
         "key": "/root/server.key",
-	"sni": "your_domain.com",    #修改为你的域名
+	"sni": "your_domain.com",    #modify to your domain
         "fallback_port": 3000 
     }
 }
 ```
->> 配置b ：需要使用**CDN** 进行流量中转 （你的服务器 IP地址 已经被墙）  
+>> config b ：Need to use CDN  
 ```bash
 {
     "run_type": "server",
@@ -58,47 +53,45 @@ vim server.json
     "remote_addr": "127.0.0.1",
     "remote_port": 80,
     "password": [
-        "password0"  #修改为你设定的密码
+        "password0"  #modify to your password
     ],
     "ssl": {
         "cert": "/root/server.crt",
         "key": "/root/server.key",
-	"sni": "your_domain.com",    #修改为你的域名
+	"sni": "your_domain.com",    #modify to your domain
         "fallback_port": 3000 
     },
       "websocket": {
         "enabled": true,
-        "path": "/your_path",    #修改为你设定的路径
-        "hostname": "your_domain.com",   #修改为你的域名
-        "obfuscation_password": "password1",   #修改为另一个密码，切勿与上面的密码相同
+        "path": "/your_path",    #modify a path
+        "hostname": "your_domain.com",   #modify to your domain
+        "obfuscation_password": "password1",   #modify to another password
         "double_tls": true
     }
 }
 ```
-**`:wq!`保存并退出** 
-
-- 5. 安装 Nginx  
+- 5. install Nginx  
 ```bash
 apt update
 apt install nginx
 ```
-- 6. 移除默认安全组 （ **your_domain.com 改为你的域名 ，Ctrl+X 保存并退出**）
+- 6. remove default （please modify **yourdomain.com** to your domain,use **Ctrl+X** to quit)
 ```bash
 rm /etc/nginx/sites-enabled/default
 nano /etc/nginx/sites-available/your_domain.com
 ```
-- 7. 配置 Nginx （**your_domain.com 改为你的域名**）   
+- 7. modify config of Nginx （please modify **yourdomain.com** to your domain）   
 ```bash
 ln -s /etc/nginx/sites-available/your_domain.com /etc/nginx/sites-enabled/
 vim /etc/nginx/conf.d/about.conf
 ```
-**复制下列配置**  
+**paste the config file below**  
 ```bash
 server {
     listen 127.0.0.1:80 default_server;
-    server_name your_domain.com;   #修改为你的域名
+    server_name your_domain.com;   #modify to your domain
     location / {
-        proxy_pass https://your_proxy.com;   #修改为你想伪装的网站域名，例如 https://unsplash.com/  
+        proxy_pass https://your_proxy.com;   #modify to any website URL you want to disguise  
         proxy_redirect     off;
         proxy_connect_timeout      75; 
         proxy_send_timeout         90; 
@@ -113,8 +106,8 @@ server {
 
 server {
     listen 127.0.0.1:80;
-    server_name ip.ip.ip.ip;  #修改为你服务器的 IP地址
-    return 301 https://your_domain.com$request_uri;   #修改为你的域名
+    server_name ip.ip.ip.ip;  #modify to your server IP address
+    return 301 https://your_domain.com$request_uri;   #modify "your_domain.com" to your domain
 }
 
 server {
@@ -129,22 +122,22 @@ server {
 	return 400;
 }
 ```
-- 8. 启动服务  
+- 8. Start service  
 ```bash
 nohup ./trojan-go -config server.json >trojan-go.log 2<&1 &
 nginx -s reload
 ```
-- 9. 开启 BBR 加速 
+- 9. Start BBR Accelerate (A solotion to decrease network delay from Google) ： 
 ```bash
 bash -c 'echo "net.core.default_qdisc=fq" >> /etc/sysctl.conf'
 bash -c 'echo "net.ipv4.tcp_congestion_control=bbr" >> /etc/sysctl.conf'
 sysctl -p
 ```
-## 客户端的使用 
-PC平台 ：https://github.com/Trojan-Qt5/Trojan-Qt5/releases   
-安卓平台 ：[点击下载](https://github.com/charlieethan/firewall-proxy/releases/download/V0.5.1m/Igniter-Go-v0.5.1.apk)			
+## Client 
+Windows 7.0+ ：https://github.com/Trojan-Qt5/Trojan-Qt5/releases   
+Android 6.0+ ：[Download](https://github.com/charlieethan/firewall-proxy/releases/download/V0.5.1m/Igniter-Go-v0.5.1.apk)			
 
-**移动版推荐配置如下 ：**		
+**Recommend config on Mobile ：**		
 ```bash
 {
     "run_type": "client",
@@ -175,4 +168,4 @@ PC平台 ：https://github.com/Trojan-Qt5/Trojan-Qt5/releases
     }
 }
 ```		
-**注：如果开启 websocket ，请自行按照服务器端对本地配置进行修改**
+**If you use config b, please modify client config by yourself**
