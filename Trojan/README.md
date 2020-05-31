@@ -21,13 +21,9 @@ acme.sh --installcert -d yourdomain.com --fullchain-file /etc/trojan/trojan.crt 
 apt update
 apt install nginx
 ```
-- remove default （please modify **yourdomain.com** to your domain,use **Ctrl+X** to quit）
-```bash
-rm /etc/nginx/sites-enabled/default
-nano /etc/nginx/sites-available/yourdomain.com
-```
 - modify config files（please modify **yourdomain.com** to your domain）
 ```bash
+rm /etc/nginx/sites-enabled/default
 ln -s /etc/nginx/sites-available/yourdomain.com /etc/nginx/sites-enabled/
 vim /etc/nginx/conf.d/about.conf
 ```
