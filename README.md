@@ -17,5 +17,5 @@ https://github.com/charlieethan/firewall-proxy/tree/traditional/V2ray
 # 推薦指數  
 ⭐⭐⭐⭐⭐ Trojan-GO       
 ⭐⭐⭐⭐ Trojan             
-⭐⭐⭐⭐ V2ray+Websocket over TLS1.3+CDN       
+⭐⭐⭐ V2ray+Websocket+TLS       
 ⭐⭐ Shadowsocks+OBFS    
