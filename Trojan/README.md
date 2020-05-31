@@ -30,14 +30,13 @@ nano /etc/nginx/sites-available/yourdomain.com
 ln -s /etc/nginx/sites-available/yourdomain.com /etc/nginx/sites-enabled/
 vim /etc/nginx/conf.d/about.conf
 ```
-- 將以下內容粘貼 （注意：**yourdomain.com**請替換為你自己的功能變數名稱，**proxy.com** 請替換為你想鏡像的網站,**ip.ip.ip.ip**請替換為你的伺服器地址，**共有4處需要修改**）                  
-**切勿替換為牆內不可直連的網站，例如Google/Facebook/Youtube等等。最好也不要替換為伺服器在國內的網站，例如 百度/豆瓣 等等**
+- 將以下內容粘貼   
 ```bash
 server {
     listen 127.0.0.1:80 default_server;
-    server_name yourdomain.com;
+    server_name yourdomain.com;   #改爲你的功能變數名稱
     location / {
-        proxy_pass proxy.com;
+        proxy_pass proxy.com;   #改爲你想僞裝的網站
         proxy_redirect     off;
         proxy_connect_timeout      75; 
         proxy_send_timeout         90; 
@@ -52,8 +51,8 @@ server {
 
 server {
     listen 127.0.0.1:80;
-    server_name ip.ip.ip.ip;
-    return 301 https://yourdomain.com$request_uri;
+    server_name ip.ip.ip.ip;    #改爲你伺服器的IP
+    return 301 https://yourdomain.com$request_uri;   #改爲你的功能變數名稱
 }
 
 server {
@@ -69,7 +68,7 @@ wget -qO- get.docker.com | bash
 docker pull teddysun/trojan
 cd /etc/trojan && vim config.json
 ```
-- 將以下內容粘貼 （注意：**password0**請更改為**你自己設置的密碼**，最好在8位以上，其餘部分無需更改，除非你知道自己在做什麼）
+- 將以下內容粘貼 
 ```bash
 {
     "run_type": "server",
@@ -78,7 +77,7 @@ cd /etc/trojan && vim config.json
     "remote_addr": "127.0.0.1",
     "remote_port": 80,
     "password": [
-        "password0"
+        "password0"   #改爲你的密碼
     ],
     "log_level": 1,
     "ssl": {
