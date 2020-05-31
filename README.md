@@ -15,5 +15,5 @@
 # 推荐指数  
 ⭐⭐⭐⭐⭐ Trojan-GO       
 ⭐⭐⭐⭐ Trojan             
-⭐⭐⭐⭐ V2ray+Websocket over TLS1.3+CDN       
+⭐⭐⭐ V2ray+Websocket+TLS        
 ⭐⭐ Shadowsocks+OBFS     
