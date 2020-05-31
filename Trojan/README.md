@@ -30,14 +30,13 @@ nano /etc/nginx/sites-available/yourdomain.com
 ln -s /etc/nginx/sites-available/yourdomain.com /etc/nginx/sites-enabled/
 vim /etc/nginx/conf.d/about.conf
 ```
-- 将以下内容粘贴 （注意：**yourdomain.com**请替换为你自己的域名，**proxy.com** 请替换为你想镜像的网站,**ip.ip.ip.ip**请替换为你的服务器地址，**共有4处需要修改**）                  
-**切勿替换为墙内不可直连的网站，例如Google/Facebook/Youtube等等。最好也不要替换为服务器在国内的网站，例如 百度/豆瓣 等等**
+- 将以下内容粘贴 
 ```bash
 server {
     listen 127.0.0.1:80 default_server;
-    server_name yourdomain.com;
+    server_name yourdomain.com;  #改为你的域名
     location / {
-        proxy_pass proxy.com;
+        proxy_pass proxy.com;   #改为你想伪装的网站
         proxy_redirect     off;
         proxy_connect_timeout      75; 
         proxy_send_timeout         90; 
@@ -52,8 +51,8 @@ server {
 
 server {
     listen 127.0.0.1:80;
-    server_name ip.ip.ip.ip;
-    return 301 https://yourdomain.com$request_uri;
+    server_name ip.ip.ip.ip;   #改为你服务器的IP
+    return 301 https://yourdomain.com$request_uri;   #改为你的域名
 }
 
 server {
@@ -69,7 +68,7 @@ wget -qO- get.docker.com | bash
 docker pull teddysun/trojan
 cd /etc/trojan && vim config.json
 ```
-- 将以下内容粘贴 （注意：**password0**请更改为**你自己设置的密码**，最好在8位以上，其余部分无需更改，除非你知道自己在做什么）
+- 将以下内容粘贴
 ```bash
 {
     "run_type": "server",
@@ -78,7 +77,7 @@ cd /etc/trojan && vim config.json
     "remote_addr": "127.0.0.1",
     "remote_port": 80,
     "password": [
-        "password0"
+        "password0"   #改为你的密码
     ],
     "log_level": 1,
     "ssl": {
