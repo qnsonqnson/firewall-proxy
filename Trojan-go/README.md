@@ -82,13 +82,9 @@ vim server.json
 apt update
 apt install nginx
 ```
-- 6. 移除默认安全组 （ **your_domain.com 改为你的域名 ，Ctrl+X 保存并退出**）
+- 6. 移除默认（ **your_domain.com 改为你的域名**）
 ```bash
 rm /etc/nginx/sites-enabled/default
-nano /etc/nginx/sites-available/your_domain.com
-```
-- 7. 配置 Nginx （**your_domain.com 改为你的域名**）   
-```bash
 ln -s /etc/nginx/sites-available/your_domain.com /etc/nginx/sites-enabled/
 vim /etc/nginx/conf.d/about.conf
 ```
