@@ -1,43 +1,43 @@
-# 准备工作
-1.你需要拥有一个自己的**域名**，并会正确设置**DNS解析**，如果你不知道以上两个名词的含义，请自行Google学习     
-2.搭建环境 ：纯净的 **Debian 9** 系统
-
-# 开始部署
-- 下载证书申请脚本
+# Prepare
+- You need correctly appoint your Domain to your Server IP, and DO NOT open CDN service at first        
+- **Please pay attention to the marks on each line of the config files, and modify them as requested**      
+# Build Environment 
+Debian 9 && Ubuntu 16~18        
+# Content
+- download script
 ```bash
 apt-get update && apt-get -y install socat         
 wget -qO- get.acme.sh | bash       
 source ~/.bashrc
 ```
-- 安装脚本 （注意：**yourdomain.com**请替换为你自己的域名）
+- install script （please modify **yourdomain.com** to your domain）
 ```bash
 acme.sh --issue --standalone -d yourdomain.com -k ec-256
 mkdir /etc/trojan
 acme.sh --installcert -d yourdomain.com --fullchain-file /etc/trojan/trojan.crt --key-file /etc/trojan/trojan.key --ecc
 ```
-- 安装Nginx
+- install Nginx
 ```bash
 apt update
 apt install nginx
 ```
-- 移除默认代理组 （注意：**yourdomain.com**请替换为你自己的域名,执行后按**Ctrl+X**退出）
+- remove default （please modify **yourdomain.com** to your domain,use **Ctrl+X** to quit）
 ```bash
 rm /etc/nginx/sites-enabled/default
 nano /etc/nginx/sites-available/yourdomain.com
 ```
-- 添加新的代理组并编辑配置文件 （注意：**yourdomain.com**请替换为你自己的域名）
+- modify config files（please modify **yourdomain.com** to your domain）
 ```bash
 ln -s /etc/nginx/sites-available/yourdomain.com /etc/nginx/sites-enabled/
 vim /etc/nginx/conf.d/about.conf
 ```
-- 将以下内容粘贴 （注意：**yourdomain.com**请替换为你自己的域名，**proxy.com** 请替换为你想镜像的网站,**ip.ip.ip.ip**请替换为你的服务器地址，**共有4处需要修改**）                  
-**切勿替换为墙内不可直连的网站，例如Google/Facebook/Youtube等等。最好也不要替换为服务器在国内的网站，例如 百度/豆瓣 等等**
+- paste config below       
 ```bash
 server {
     listen 127.0.0.1:80 default_server;
-    server_name yourdomain.com;
+    server_name yourdomain.com;    #modify "your_domain.com" to your domain
     location / {
-        proxy_pass proxy.com;
+        proxy_pass proxy.com;         #modify to any website URL you want to disguise
         proxy_redirect     off;
         proxy_connect_timeout      75; 
         proxy_send_timeout         90; 
@@ -52,8 +52,8 @@ server {
 
 server {
     listen 127.0.0.1:80;
-    server_name ip.ip.ip.ip;
-    return 301 https://yourdomain.com$request_uri;
+    server_name ip.ip.ip.ip;      #modify to your server IP address
+    return 301 https://yourdomain.com$request_uri;   #modify "your_domain.com" to your domain
 }
 
 server {
@@ -63,13 +63,13 @@ server {
     return 301 https://$host$request_uri;
 }
 ```
-- 安装Trojan并编辑配置文件
+- install Trojan service
 ```bash
 wget -qO- get.docker.com | bash
 docker pull teddysun/trojan
 cd /etc/trojan && vim config.json
 ```
-- 将以下内容粘贴 （注意：**password0**请更改为**你自己设置的密码**，最好在8位以上，其余部分无需更改，除非你知道自己在做什么）
+- paste config below        
 ```bash
 {
     "run_type": "server",
@@ -78,7 +78,7 @@ cd /etc/trojan && vim config.json
     "remote_addr": "127.0.0.1",
     "remote_port": 80,
     "password": [
-        "password0"
+        "password0"   #modify to your password
     ],
     "log_level": 1,
     "ssl": {
@@ -116,21 +116,19 @@ cd /etc/trojan && vim config.json
     }
 }
 ```
-- 启动BBR加速
+- Start BBR Accelerate (A solotion to decrease network delay from Google) ：
 ```bash
 sudo bash -c 'echo "net.core.default_qdisc=fq" >> /etc/sysctl.conf'
 sudo bash -c 'echo "net.ipv4.tcp_congestion_control=bbr" >> /etc/sysctl.conf'
 sudo sysctl -p
 ```
-- 启动服务
+- Start Service     
 ```bash
 nginx -s reload
 docker run -d --name trojan --restart always --net host -v /etc/trojan:/etc/trojan teddysun/trojan
 ```
 
-# 客户端
-安卓系统 ：[点击下载](https://github.com/trojan-gfw/igniter/releases)          
-> 配置如下： **地址**填你的域名，**端口**填 443 ，**密码**填你刚才设置的密码，其他选项无需更改        
+# Client
+Android 6.0+ ：[Download](https://github.com/trojan-gfw/igniter/releases)                  
 
-Windows系统 ：[点击下载](https://github.com/Trojan-Qt5/Trojan-Qt5/releases)   
-> 项目地址 & 使用说明 ：https://github.com/TheWanderingCoel/Trojan-Qt5
+Windows 7.0+ ：[Download](https://github.com/Trojan-Qt5/Trojan-Qt5/releases)   
